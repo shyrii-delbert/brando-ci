@@ -121,6 +121,9 @@ fn parse_config() -> Config {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     println!("starting brando ci...");
+    let config = parse_config();
+    let bind_address = format!("0.0.0.0:{}", config.port);
+    println!("listening to {}", &bind_address);
     HttpServer::new(|| {
             App::new()
                 .data(parse_config())
@@ -128,7 +131,7 @@ async fn main() -> std::io::Result<()> {
                 .service(server_update)
                 .service(client_update)
         })
-    .bind("127.0.0.1:8081")?
+    .bind(bind_address)?
     .run()
     .await
 }
