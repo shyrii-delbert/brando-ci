@@ -53,9 +53,9 @@ async fn server_update(config: web::Data<Config>, query: web::Query<UpdateQuery>
             }
             match config.branches.as_ref().unwrap().get(&query.branch) {
                Some(branch) => {
-                   match reqwest::get(format!("{}{}?token={}", branch.host, "/client/update", &branch.token)).await {
+                   match reqwest::blocking::get(format!("{}{}?token={}&branch={}", branch.host, "/client/update", &branch.token, &query.branch)) {
                         Err(_) => HttpResponse::ServiceUnavailable().body("Send Request Error"),
-                        _ => HttpResponse::Ok().body("Ok")
+                        Ok(res) => HttpResponse::Ok().body(format!("Ok, {}", res.text().unwrap()))
                    }
                },
                None => HttpResponse::NotFound().body("No such branch registered"),

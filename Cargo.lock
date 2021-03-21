@@ -1881,6 +1881,7 @@ dependencies = [
  "libc",
  "memchr",
  "mio 0.7.10",
+ "num_cpus",
  "pin-project-lite 0.2.6",
 ]
 
