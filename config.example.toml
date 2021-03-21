@@ -1,0 +1,14 @@
+mode = "server"
+port = 8081
+token = "test"
+
+[branches.develop]
+host = "localhost:10010"
+token = "test"
+
+[branches.release]
+host = "localhost:10011"
+token = "test"
+
+[brando]
+path = "../brando"
